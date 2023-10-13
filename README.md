@@ -24,6 +24,11 @@ Only the seeds are inserted.
 ```bash
 $ prisma db seed
 ```
+###  Run Test
+Only the seeds are inserted.
+```bash
+$ npm run test
+```
 ## Description
 
   

@@ -25,7 +25,7 @@ export class UserService {
   }
   public async isUserPost(id: number, userId: number) {
     const post = await this.userRepository.findUserPostById(id);
-    return Number(post.userId) === userId ? post : undefined;
+    return Number(post?.userId) === userId ? post : undefined;
   }
   public getRegisterUsers() {
     return this.userRepository.getRegisterUsers();
@@ -36,6 +36,9 @@ export class UserService {
 
   public async add(payload: UserDBEntity) {
     const usersJsonPlaceHolder = await this.userRepository.findAll();
+    if (!usersJsonPlaceHolder) {
+      return { message: "place holder not found" };
+    }
     const existInPlaceHolder = usersJsonPlaceHolder.find((user) => {
       return user.email === payload.email;
     });

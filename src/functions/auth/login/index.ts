@@ -7,12 +7,6 @@ export const login = {
       http: {
         method: "post",
         path: "login",
-        responses: {
-          200: {
-            description: "success Login",
-            bodyType: "BodyLogin",
-          },
-        },
       },
     },
   ],

@@ -1,4 +1,4 @@
-import prisma from "src/db";
+import prisma from "../../../db";
 import * as utils from "../../../utils";
 import { PostEntity, UserDBEntity, UserEntity } from "../entities";
 import { CommentEntity } from "../entities/comment.entity";
@@ -26,8 +26,8 @@ export class UserRepository {
     );
     return response;
   }
-  public async findCommentsByPostId(id: number): Promise<CommentEntity> {
-    const response: CommentEntity = await utils.request(
+  public async findCommentsByPostId(id: number): Promise<CommentEntity[]> {
+    const response: CommentEntity[] = await utils.request(
       `${utils.urls.POSTS}/${id}/comments`
     );
     return response;
