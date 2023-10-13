@@ -1,4 +1,5 @@
 jest.mock("../repository/user.repository");
+import { RoleRepository } from "../../role/repository/role.repository";
 import { UserRepository } from "../repository/user.repository";
 import { UserService } from "./user.service";
 
@@ -6,7 +7,7 @@ describe("UserService", () => {
   let service: UserService;
 
   beforeEach(() => {
-    service = new UserService(new UserRepository());
+    service = new UserService(new UserRepository(), new RoleRepository());
   });
   test("findAll", () => {
     expect(service.findAll()).toHaveBeenCalled;

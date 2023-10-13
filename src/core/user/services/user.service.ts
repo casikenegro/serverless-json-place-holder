@@ -1,8 +1,13 @@
+import { RoleRepository } from "../../role/repository/role.repository";
+import { UserDto } from "../dto";
 import { UserDBEntity } from "../entities";
 import { UserRepository } from "../repository/user.repository";
 import bcrypt from "bcryptjs";
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(
+    private readonly userRepository: UserRepository,
+    private readonly roleRepository: RoleRepository
+  ) {}
   public findAll() {
     return this.userRepository.findAll();
   }
@@ -34,7 +39,7 @@ export class UserService {
     return this.userRepository.findById(id);
   }
 
-  public async add(payload: UserDBEntity) {
+  public async add(payload: UserDto) {
     const usersJsonPlaceHolder = await this.userRepository.findAll();
     if (!usersJsonPlaceHolder) {
       return { message: "place holder not found" };
@@ -48,7 +53,13 @@ export class UserService {
     if (await this.userRepository.findByEmail(existInPlaceHolder.email)) {
       return { message: "user exist in db" };
     }
+    const role = await this.roleRepository.findByName(payload.name);
+    if (!role) {
+      return { message: "role not exist" };
+    }
     payload.password = bcrypt.hashSync(payload.password, 8);
-    return this.userRepository.create(payload);
+    return this.userRepository.create(
+      new UserDBEntity({ ...payload, roleId: role.id })
+    );
   }
 }

@@ -1,5 +1,4 @@
-import prisma from "src/db";
-import * as utils from "../../../utils";
+import prisma from "../../../db";
 import { RoleEntity } from "../entities/role.entity";
 import { RoleDto } from "../dto/role.dto";
 
@@ -11,6 +10,12 @@ export class RoleRepository {
   public async findOne(id: number): Promise<RoleEntity> {
     const response: RoleEntity = await prisma.role.findUnique({
       where: { id },
+    });
+    return response;
+  }
+  public async findByName(name: string): Promise<RoleEntity> {
+    const response: RoleEntity = await prisma.role.findUnique({
+      where: { name },
     });
     return response;
   }

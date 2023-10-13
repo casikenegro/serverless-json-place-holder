@@ -55,5 +55,18 @@ $ npm run sls:dev
 # development
 
 localhost:3000/swagger
-
+ GET  | http://localhost:3000/develop/users-json-place-holder
+ GET  | http://localhost:3000/develop/users-json-place-holder/{id}
+ GET  | http://localhost:3000/develop/me
+ GET  | http://localhost:3000/develop/me/posts/{id}
+ GET  | http://localhost:3000/develop/me/posts
+ POST | http://localhost:3000/develop/login
+ GET  | http://localhost:3000/develop/me/posts/{id}/comments
+ POST | http://localhost:3000/develop/roles
+ GET  | http://localhost:3000/develop/roles
+ GET  | http://localhost:3000/develop/roles/{id}
+ GET  | http://localhost:3000/develop/users
+ GET  | http://localhost:3000/develop/users/{id}
+ POST | http://localhost:3000/develop/users    
+ 
 ```

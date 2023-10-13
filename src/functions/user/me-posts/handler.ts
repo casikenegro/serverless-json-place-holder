@@ -4,11 +4,15 @@ import { UserService } from "src/core/user/services/user.service";
 import { UserRepository } from "src/core/user/repository/user.repository";
 import { APIGatewayProxyEvent } from "aws-lambda";
 import { Context } from "vm";
+import { RoleRepository } from "src/core/role/repository/role.repository";
 
 export const main = async (event: APIGatewayProxyEvent, _context: Context) => {
   try {
     const user = ValidationToken(event.headers["Authorization"]);
-    const userService = new UserService(new UserRepository());
+    const userService = new UserService(
+      new UserRepository(),
+      new RoleRepository()
+    );
     const response = await userService.findUserPosts(Number(user.id));
     return formatJSONResponse({
       result: response,
